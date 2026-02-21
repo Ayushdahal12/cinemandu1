@@ -18,7 +18,7 @@ const FeaturedSection = () => {
             <BlurCircle top='0' right='-80px'/>
             <p className='text-grey-300 font-medium text-lg'>Now showing</p>
             <button onClick={()=> navigate('/movies')} className='group flex items-center gap-2 ext-sm text-grey-300 cursor-pointer'>
-                View All 
+                Explore 
                 <ArrowRight className='group-hover:translate-x-0.5 transition w-4.5 h-4.5'/>
                 </button>
         </div>

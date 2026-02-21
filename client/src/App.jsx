@@ -15,19 +15,34 @@ import Listshows from './assets/pages/admin/Listshows';
 import ListBookings from './assets/pages/admin/ListBookings';
 import Layout from './assets/pages/admin/Layout';
 import { SignIn, useUser } from '@clerk/clerk-react';
+import PaymentSuccess from './assets/pages/PaymentSuccess'
+import PaymentPage from './assets/pages/PaymentPage'
+import AdminBookings from './assets/pages/admin/AdminBookings'
+import CancelledBookings from './assets/pages/admin/CancelledBookings'
+import AdminTheaters from './assets/pages/admin/AdminTheaters'
+import Theaters from './assets/pages/Theaters'
+import AdminUsers from './assets/pages/admin/AdminUsers'
+
+
+
 
 
 const App = () => {
 
   const isAdminRoute = useLocation().pathname.startsWith('/admin')
-
   const { user } = useUser()
+
   return (
     <>
       <Toaster />
       {!isAdminRoute && <Navbar />}
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/payment-success' element={<PaymentSuccess />} />
+        <Route path='/payment' element={<PaymentPage />} />
+
+
+        <Route path='/theaters' element={<Theaters />} />
         <Route path='/movies' element={<Movies />} />
         <Route path='/movies/:id' element={<MovieDetails />} />
         <Route path='/movies/:id/:date' element={<SeatLayout />} />
@@ -35,16 +50,20 @@ const App = () => {
         <Route path='/favorite' element={<Favorite />} />
         <Route path="/admin" element={user ? <Layout /> : (
           <div className='min-h-screen flex justify-center items-center'>
-            <SignIn fallbackRedirectUrl={'/admin'}/>
+            <SignIn fallbackRedirectUrl={'/admin'} />
           </div>
         )}>
-    <Route index element={<Dashboard />} /> 
-    <Route path="add-shows" element={<Addshows />} />
-    <Route path="list-shows" element={<Listshows />} />
-    <Route path="list-bookings" element={<ListBookings />} />
-  </Route>
+          <Route index element={<Dashboard />} />
+          <Route path="add-shows" element={<Addshows />} />
+          <Route path="list-shows" element={<Listshows />} />
+          <Route path="list-bookings" element={<ListBookings />} />
+          <Route path="bookings" element={<AdminBookings />} />
+          <Route path="cancelled-bookings" element={<CancelledBookings />} />
+          <Route path="theaters" element={<AdminTheaters />} />
+          <Route path="users" element={<AdminUsers />} />
+        </Route>
       </Routes>
-      { !isAdminRoute && <Footer />}
+      {!isAdminRoute && <Footer />}
     </>
   )
 }

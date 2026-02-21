@@ -29,7 +29,7 @@ const DateSelect = ({ dateTime, id }) => {
         <div>
 
           
-          <p  className='text-lg font-semibold' >Choose Date</p>
+          <p  className='text-lg font-semibold' >Select Date</p>
           <div className='flex items-center gap-6 text-sm mt-5'>
             <ChevronLeftIcon width={28} />
             <span className='grid grid-cols-3 md:flex flex-warp md:max-w-lg gap-4'>

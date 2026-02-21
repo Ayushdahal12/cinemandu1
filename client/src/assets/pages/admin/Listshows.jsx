@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { dummyShowsData } from '../../assets';
 import Title from './Title';
 import Loading from '../../components/Loading';
 import { dateFormat } from '../../lib/dateFormat';
 import { useAppContext } from '../../../context/appcontext';
+import toast from 'react-hot-toast';
 
 const ListShows = () => {
 
   const currency = import.meta.env.VITE_CURRENCY
-
   const { axios, getToken, user } = useAppContext()
-
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,9 +23,26 @@ const ListShows = () => {
       console.error(error);
     }
   }
+
+  const handleDelete = async (showId) => {
+    try {
+      const { data } = await axios.delete(`/api/admin/delete-show/${showId}`, {
+        headers: { Authorization: `Bearer ${await getToken()}` }
+      })
+      if (data.success) {
+        toast.success(data.message)
+        getAllShows()
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
   useEffect(() => {
-    if(user){
-         getAllShows();
+    if (user) {
+      getAllShows();
     }
   }, [user]);
 
@@ -42,6 +57,7 @@ const ListShows = () => {
               <th className="p-2 font-medium">Show Time</th>
               <th className="p-2 font-medium">Total Bookings</th>
               <th className="p-2 font-medium">Earnings</th>
+              <th className="p-2 font-medium">Action</th>
             </tr>
           </thead>
           <tbody className="text-sm font-light">
@@ -51,12 +67,18 @@ const ListShows = () => {
                 <td className="p-2">{dateFormat(show.showDateTime)}</td>
                 <td className="p-2">{Object.keys(show.occupiedSeats).length}</td>
                 <td className="p-2">{currency} {Object.keys(show.occupiedSeats).length * show.showPrice}</td>
+                <td className="p-2">
+                  <button
+                    onClick={() => handleDelete(show._id)}
+                    className="bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1 text-xs rounded-full hover:bg-red-500/30 transition cursor-pointer">
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
     </>
   ) : <Loading />
 }

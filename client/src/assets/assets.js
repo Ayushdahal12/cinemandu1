@@ -1,38 +1,39 @@
-import logo from './logo.svg'
-import marvelLogo from './marvelLogo.svg'
-import googlePlay from './googlePlay.svg'
-import appStore from './appStore.svg'
+import logo from './logo.png'
+import mainlogo from './mainlogo.png'
+import esewa from './esewa.png'
+import khalti from './khalti.png'
 import screenImage from './screenImage.svg'
 import profile from './profile.png'
+import background from './background.png'  // matches your file
 
 export const assets = {
     logo,
-    marvelLogo,
-    googlePlay,
-    appStore,
+    mainlogo,
+    esewa,
+    khalti,
     screenImage,
-    profile
+    profile,
+    background,    
 }
 
 export const dummyTrailers = [
     {
-        image: "https://lumiere-a.akamaihd.net/v1/images/image_27a4b9be.jpeg",
-        videoUrl: 'https://www.youtube.com/embed/WpW36ldAqnM'
-    },
-    {
-        // image: "https://i.ytimg.com/vi/ZUpDVmTRKsI/maxresdefault.jpg",
-        // videoUrl: 'https://www.youtube.com/embed/8AKu9Tkgrwo'
-        image: "https://img.youtube.com/vi/-sAOWhvheK8/maxresdefault.jpg",
-        videoUrl: 'https://www.youtube.com/embed/-sAOWhvheK8'
+         image: "https://img.youtube.com/vi/2M4hKmuBzUU/maxresdefault.jpg",
+        videoUrl: 'https://www.youtube.com/embed/2M4hKmuBzUU'
     },
     {
         image: "https://i.ytimg.com/vi/8vafCOeuH_A/maxresdefault.jpg",
         videoUrl: 'https://www.youtube.com/embed/8vafCOeuH_A'
     },
     {
-        image: "https://img.youtube.com/vi/umiKiW4En9g/maxresdefault.jpg",
-        videoUrl: 'https://www.youtube.com/embed/umiKiW4En9g'
+         image: "https://lumiere-a.akamaihd.net/v1/images/image_27a4b9be.jpeg",
+        videoUrl: 'https://www.youtube.com/embed/WpW36ldAqnM'
+        
     },
+    {
+        image: "https://img.youtube.com/vi/M2OnifMgvps/maxresdefault.jpg",
+        videoUrl: 'https://www.youtube.com/embed/M2OnifMgvps'
+    }
 ]
 
 const dummyCastsData = [

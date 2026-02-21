@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Loading from '../../components/Loading';
 import Title from './Title';
-import { dummyShowsData } from '../../assets';
 import { StarIcon, CheckIcon, XIcon } from 'lucide-react';
 import { kConverter } from '../../lib/kconverter';
 import { useAppContext } from '../../../context/appcontext';
@@ -9,7 +8,6 @@ import toast from 'react-hot-toast';
 
 const AddShows = () => {
   const { axios, getToken, user, image_base_url } = useAppContext()
-
   const currency = import.meta.env.VITE_CURRENCY
 
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
@@ -18,10 +16,17 @@ const AddShows = () => {
   const [dateTimeInput, setDateTimeInput] = useState("");
   const [showPrice, setShowPrice] = useState("");
   const [addingshow, setAddingshow] = useState(false);
+  const [language, setLanguage] = useState("en-US");
+
+  const languages = [
+    { label: "English", value: "en-US" },
+    { label: "Hindi", value: "hi-IN" },
+    { label: "Nepali", value: "ne-NP" },
+  ]
 
   const fetchNowPlayingMovies = async () => {
     try {
-      const { data } = await axios.get('/api/show/now-playing', {
+      const { data } = await axios.get(`/api/show/now-playing?language=${language}`, {
         headers: { Authorization: `Bearer ${await getToken()}` }
       })
       if (data.success) {
@@ -96,12 +101,29 @@ const AddShows = () => {
     if (user) {
       fetchNowPlayingMovies();
     }
-  }, [user]);
+  }, [user, language]);
 
   return nowPlayingMovies.length > 0 ? (
     <>
       <Title text1="Add" text2="Shows" />
-      <p className="mt-10 text-lg font-medium">Now Playing Movies</p>
+
+      {/* Language Selector */}
+      <div className="mt-6 flex items-center gap-3">
+        <p className="text-sm font-medium">Select Language:</p>
+        <div className="flex gap-2">
+          {languages.map((lang) => (
+            <button
+              key={lang.value}
+              onClick={() => { setLanguage(lang.value); setSelectedMovie(null) }}
+              className={`px-4 py-1.5 text-sm rounded-full border transition cursor-pointer ${language === lang.value ? 'bg-primary border-primary text-white' : 'border-gray-600 text-gray-400 hover:border-primary'}`}
+            >
+              {lang.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <p className="mt-6 text-lg font-medium">Now Playing Movies</p>
       <div className="overflow-x-auto pb-4">
         <div className="group flex flex-wrap gap-4 mt-4 w-max">
           {nowPlayingMovies.map((movie) => (
