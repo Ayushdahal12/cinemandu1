@@ -1,6 +1,7 @@
 import { clerkClient } from "@clerk/express";
 import Booking from "../models/Booking.js";
 import Movie from "../models/Movie.js"
+import Show from '../models/Show.js'
 
 // API Controller Function to Get User Bookings
 export const getUserBookings = async (req, res) => {
@@ -47,14 +48,26 @@ export const updateFavorite = async (req, res) => {
     }
 }
 
+
 export const getFavorites = async (req, res) => {
     try {
         const user = await clerkClient.users.getUser(req.auth().userId)
-        const favorites = user.privateMetadata.favorites;
+        const favorites = user.privateMetadata.favorites || []
 
         const movies = await Movie.find({ _id: { $in: favorites } })
 
-        res.json({ success: true, movies })
+        // Only return movies that have active shows
+        const moviesWithShows = await Promise.all(movies.map(async (movie) => {
+            const show = await Show.findOne({ 
+                movie: movie._id, 
+                showDateTime: { $gte: new Date() } 
+            })
+            return show ? movie : null
+        }))
+
+        const filteredMovies = moviesWithShows.filter(movie => movie !== null)
+
+        res.json({ success: true, movies: filteredMovies })
     } catch (error) {
         console.error(error.message);
         res.json({ success: false, message: error.message });

@@ -219,7 +219,7 @@ const SeatLayout = () => {
     if (!selectedTime) {
       return toast("please select time first")
     }
-    if (!selectedSeats.includes(seatId) && selectedSeats.length > 5) {
+    if (!selectedSeats.includes(seatId) && selectedSeats.length > 4) {
       return toast("You can select only 5 seats")
     }
     if (occupiedSeats.includes(seatId)) {
