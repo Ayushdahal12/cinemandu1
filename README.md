@@ -57,7 +57,7 @@ Deployment: Vercel
 
 Installation
 Clone Repository
-git clone https://github.com/yourusername/cineway.git
+git clone https://github.com/ayushdahl12/cineway.git
 cd cineway
 Backend Setup
 cd Server
@@ -105,7 +105,6 @@ GET /api/cinepoints
 POST /api/ai/movie-chat
 POST /api/ai/recommend
 
-clone project through- github.com/Ayushdahal12/cinemandu-final-year-project
 Developer
 
 Ayush Dahal
