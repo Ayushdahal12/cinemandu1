@@ -1,6 +1,6 @@
-Cineway — Theatre Ticket Booking System
+Cineway — Theatre and Ticket Management System
 
-A full-stack MERN theatre ticket booking platform with AI features, eSewa payment integration, and a loyalty rewards system built for Nepal.
+A full-stack theatre managemetn and  ticket booking platform with AI features, eSewa payment integration, and a loyalty rewards system built for Nepal.
 
 Features
 User Features
